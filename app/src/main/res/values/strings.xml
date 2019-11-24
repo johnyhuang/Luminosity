@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MobProg Project</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rules_text">
+        Welcome to Luminosity. Here you will be task with navigating through a series of mazes with layout that changes dynamically according to the light level perceived by your phone\'s light sensor.
+        You can only vertical and horizontally one tile at a time by clicking on the tile. You can only move to
+        tiles that are colored GREEN, and your objective is to the to the RED tile. Good Luck
+
+        \n\nPLAY IN AN AREA WITH GOOD LIGHTING, OR HAVE A LIGHT SOURCE NEARBY. YOU CAN MANIPULATE THE LIGHT INTENSITY DETECTED BY YOUR LIGHT SENSOR BY BLOCKING THE LIGHT SENSOR WITH YOUR FINGER.
+    </string>
+</resources>
