@@ -106,6 +106,9 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         val intent = Intent(this@GameActivity,MainActivity::class.java)
         val stageText = findViewById<TextView>(R.id.stageText)
         val quitBtn = findViewById<Button>(R.id.quitButton)
+        val star1 = findViewById<ImageView>(R.id.star1)
+        val star2 = findViewById<ImageView>(R.id.star2)
+        val star3 = findViewById<ImageView>(R.id.star3)
         val row1 = findViewById<TableRow>(R.id.row1)
         val row2 = findViewById<TableRow>(R.id.row2)
         val row3 = findViewById<TableRow>(R.id.row3)
@@ -165,6 +168,11 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                             board[currentPos[0]][currentPos[1]].setImageResource(R.drawable.player_sprite)
                             board = changeBoardState(board, boardList[currentBoard])
                         }
+                        when(currentStage){
+                            2 -> star1.setImageResource(android.R.drawable.btn_star_big_on)
+                            3 -> star2.setImageResource(android.R.drawable.btn_star_big_on)
+                            4 -> star3.setImageResource(android.R.drawable.btn_star_big_on)
+                        }
                     }
                 }
                 //Update view
@@ -175,6 +183,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
         //Quit btn on click listener
         quitBtn.setOnClickListener{
+            intent.putExtra("Score", currentBoard)
             startActivity(intent)
         }
         //Initialize Player Sprite om board
