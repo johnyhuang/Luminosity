@@ -1,7 +1,8 @@
 # Luminosity
 
 An android maze puzzle game for Mobile Programming UPH 2019/2020
-**light sensor required**
+
+**Note: light sensor required**
 
 Developed by:
 * Johny Huang - 01082170004
