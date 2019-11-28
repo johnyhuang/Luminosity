@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gameMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/gameMainLayout"
     tools:context=".GameActivity">
 
     <TableLayout
@@ -62,9 +62,10 @@
         android:layout_height="wrap_content"
         android:text="0 lx"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timerText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.525" />
 
     <ProgressBar
         android:id="@+id/lightBar"
@@ -107,8 +108,8 @@
         android:id="@+id/stageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
         android:text="Stage 1"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/lxField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,8 +119,8 @@
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
         android:text="Your Score"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/star2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,5 +155,45 @@
         app:layout_constraintStart_toEndOf="@+id/star2"
         app:layout_constraintTop_toBottomOf="@+id/scoreText"
         app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/lightBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lxField"
+        app:layout_constraintTop_toBottomOf="@+id/stageText" />
+
+    <TextView
+        android:id="@+id/timerScore1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stage 1: "
+        app:layout_constraintBottom_toTopOf="@+id/timerScore2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timerText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timerScore2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stage 2: "
+        app:layout_constraintBottom_toTopOf="@+id/timerScore3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timerText"
+        app:layout_constraintTop_toBottomOf="@+id/timerScore1" />
+
+    <TextView
+        android:id="@+id/timerScore3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stage 3: "
+        app:layout_constraintBottom_toTopOf="@+id/moonIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timerText"
+        app:layout_constraintTop_toBottomOf="@+id/timerScore2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

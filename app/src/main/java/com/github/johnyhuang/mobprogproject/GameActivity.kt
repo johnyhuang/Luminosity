@@ -8,17 +8,27 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 import kotlin.math.abs
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import kotlinx.android.synthetic.main.activity_game.*
+import kotlin.concurrent.timer
+
 
 class GameActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var mSensorManager: SensorManager
     private var mSensors: Sensor? = null
+    private var timerValue: String = ""
+    private var startTime: Long = 0
     private var lxValue: Float = 0f
     private lateinit var lightBar: ProgressBar
     private var currentBoard: Int = 0
@@ -92,6 +102,21 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         lightBar.progress = (lxValue.toInt() - 5) * 10
     }
 
+    private val timerHandler: Handler = Handler()
+    var timerRunnable: Runnable = object : Runnable {
+
+        override fun run() {
+            val millis = System.currentTimeMillis() - startTime
+            var seconds = (millis / 1000).toInt()
+            val minutes = seconds / 60
+            seconds = seconds % 60
+
+            timerText.setText(String.format("%d:%02d", minutes, seconds))
+            timerValue = String.format("%d:%02d", minutes, seconds)
+            timerHandler.postDelayed(this, 500)
+        }
+    }
+
     //On create activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +134,9 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         val star1 = findViewById<ImageView>(R.id.star1)
         val star2 = findViewById<ImageView>(R.id.star2)
         val star3 = findViewById<ImageView>(R.id.star3)
+        val timerScore1 = findViewById<TextView>(R.id.timerScore1)
+        val timerScore2 = findViewById<TextView>(R.id.timerScore2)
+        val timerScore3 = findViewById<TextView>(R.id.timerScore3)
         val row1 = findViewById<TableRow>(R.id.row1)
         val row2 = findViewById<TableRow>(R.id.row2)
         val row3 = findViewById<TableRow>(R.id.row3)
@@ -169,10 +197,22 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                             board = changeBoardState(board, boardList[currentBoard])
                         }
                         when(currentStage){
-                            2 -> star1.setImageResource(android.R.drawable.btn_star_big_on)
-                            3 -> star2.setImageResource(android.R.drawable.btn_star_big_on)
-                            4 -> star3.setImageResource(android.R.drawable.btn_star_big_on)
+                            2 -> {
+                                star1.setImageResource(android.R.drawable.btn_star_big_on)
+                                timerScore1.setText(timerScore1.text.toString() + timerValue)
+                            }
+                            3 -> {
+                                star2.setImageResource(android.R.drawable.btn_star_big_on)
+                                timerScore2.setText(timerScore2.text.toString() + timerValue)
+                            }
+                            4 -> {
+                                star3.setImageResource(android.R.drawable.btn_star_big_on)
+                                timerScore3.setText(timerScore3.text.toString() + timerValue)
+                            }
                         }
+                        timerValue = ""
+                        startTime = System.currentTimeMillis()
+                        timerHandler.postDelayed(timerRunnable, 0)
                     }
                 }
                 //Update view
@@ -188,6 +228,8 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
         //Initialize Player Sprite om board
         board[currentPos[0]][currentPos[1]].setImageResource(R.drawable.player_sprite)
+        startTime = System.currentTimeMillis()
+        timerHandler.postDelayed(timerRunnable, 0)
     }
 
     //Function to check if move is valid
